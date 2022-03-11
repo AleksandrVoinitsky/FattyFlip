@@ -67,9 +67,11 @@ public class FinishAndGun : MonoBehaviour
         manager.StartCoroutine(manager.MenuLoadTimer());
 
         float velosity = FindObjectOfType<LevelManager>().Fat;
-        if (velosity > 600)
+        velosity = velosity * 30;
+
+        if (velosity > 700)
         {
-            velosity = 600;
+            velosity = 700;
         }
         if (velosity < 180)
         {

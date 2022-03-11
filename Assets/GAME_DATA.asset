@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: GAME_DATA
   m_EditorClassIdentifier: 
   data:
-    Coins: 100
+    Coins: 0
     Characters:
-    - name: Haggi Waggi
+    - name: Haggy Waggy
       Name: 0
-      State: 0
-      price: 100
-    - name: Red (Test)
+      State: 1
+      price: 0
+    - name: Woman
       Name: 1
       State: 0
-      price: 200
-    PlayerProgress: 50
-  datapath: FattyData.json
+      price: 20000
+    PlayerProgress: 90
+  datapath: FattyFlipData.json
   currentCharacter: 0
+  LevelCharacterName: 1

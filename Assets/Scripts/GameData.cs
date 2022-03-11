@@ -10,6 +10,7 @@ public class GameData : ScriptableObject
     public Data data;
     public string datapath;
     public int currentCharacter;
+    public CharacterName LevelCharacterName;
     
     
 
@@ -100,7 +101,9 @@ public struct Character
 public enum CharacterName
 {
     Hahhi,
-    Non
+    Wooman,
+    Dino,
+    SerenaHead
 }
 
 [System.Serializable]

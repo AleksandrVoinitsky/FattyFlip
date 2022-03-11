@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
         {
             mesh.SetBlendShapeWeight(0, num);
         }
-        body.gameObject.transform.DOScale(1.3f, 0.10f).OnComplete(() => { body.gameObject.transform.DOScale(1f, 0.10f); }); 
+        body.gameObject.transform.DOScale(1.5f, 0.10f).OnComplete(() => { body.gameObject.transform.DOScale(1f, 0.10f); }); 
     }
 
     public void PlayAudio()

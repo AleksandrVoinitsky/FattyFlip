@@ -59,7 +59,6 @@ public class LevelManager : MonoBehaviour
 
             if(time <= 0)
             {
-                
                 BlackoutCanvas.alpha = 0;
                 BlackoutCanvas.DOFade(1, 2).OnComplete(() => 
                 {
@@ -68,7 +67,6 @@ public class LevelManager : MonoBehaviour
                     SceneManager.LoadScene("MainMenu"); 
                 });
                 break;
-               
             }
             yield return null;
         }

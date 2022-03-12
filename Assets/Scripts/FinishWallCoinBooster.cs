@@ -8,6 +8,12 @@ public class FinishWallCoinBooster : MonoBehaviour
     [SerializeField] int Boost;
     [SerializeField] GameObject Text;
     [SerializeField] private GameObject confetti;
+    AudioSource source;
+
+    private void Start()
+    {
+        source = GetComponent<AudioSource>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -16,21 +22,9 @@ public class FinishWallCoinBooster : MonoBehaviour
             Destroy(Text);
             Instantiate(confetti, other.transform.position, Quaternion.identity);
             LevelManager manager = FindObjectOfType<LevelManager>();
-
+            source.Play();
             manager.AddScore(manager.FinishScore * Boost);
             manager.ResetTime();
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

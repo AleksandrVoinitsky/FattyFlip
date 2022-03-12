@@ -1984,7 +1984,7 @@ PrefabInstance:
       objectReference: {fileID: 2020400403}
     - target: {fileID: 2986905964082956525, guid: f38f6ac414d6f2e43a509049058767e7, type: 3}
       propertyPath: Xspeed
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2986905964082956525, guid: f38f6ac414d6f2e43a509049058767e7, type: 3}
       propertyPath: JumpVelosity
@@ -3304,7 +3304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 530352331}
-  Xspeed: 6
+  Xspeed: 10
   JumpVelosity: 45
   mesh: {fileID: 1601506892}
   audio: {fileID: 961609693}

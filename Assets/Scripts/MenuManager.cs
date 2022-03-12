@@ -22,7 +22,7 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
 #if UNITY_EDITOR
-        gameData.Save();
+        //gameData.Save(gameData.data);
 #endif
 
         BlackoutCanvas.alpha = 1;

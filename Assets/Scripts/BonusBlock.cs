@@ -10,7 +10,7 @@ public class BonusBlock : MonoBehaviour
     void Start()
     {
         int bonusplace = 0;
-        if (Random.Range(0, 100) > 50)
+        if (Random.Range(0, 100) > 20)
         {
             bonusplace = Random.Range(2, 10);
             Instantiate(bonus[Random.Range(0,bonus.Length)], new Vector3(transform.position.x, transform.position.y + bonusplace, 0), new Quaternion(0, 0, 0, 0));

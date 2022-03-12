@@ -6,6 +6,7 @@ using MoreMountains.NiceVibrations;
 public class FinishWall : MonoBehaviour
 {
     private bool Used = false;
+   
 
     private void OnTriggerEnter(Collider other)
     {

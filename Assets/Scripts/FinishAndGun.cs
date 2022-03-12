@@ -66,7 +66,7 @@ public class FinishAndGun : MonoBehaviour
         camera.smoothSpeed = 0.8f;
         camera.offset = new Vector3(-11f, 5.5f, -5.5f);
         PlayerMainBone.transform.position = Firepoint.transform.position + new Vector3(0,0,0);
-        //manager.StartCoroutine(manager.MenuLoadTimer());
+        manager.StartCoroutine(manager.MenuLoadTimer());
 
         float velosity = FindObjectOfType<LevelManager>().Fat;
         velosity = velosity / 4;

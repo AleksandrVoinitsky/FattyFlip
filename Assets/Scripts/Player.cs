@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
         manager.SetDistance(body.position.x);
         if (manager.PlayerInputActive)
         {
-            if (Input.GetMouseButtonDown(0) && body.position.y < 25)
+            if (Input.GetMouseButtonDown(0))
             {
                 body.velocity = new Vector3(body.velocity.x, JumpVelosity, body.velocity.z);
                 body.velocity = new Vector3(Xspeed, body.velocity.y, body.velocity.z);

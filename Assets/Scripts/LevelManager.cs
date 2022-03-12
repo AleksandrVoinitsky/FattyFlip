@@ -17,17 +17,30 @@ public class LevelManager : MonoBehaviour
     [SerializeField] float Timer;
     public GameData data;
     [SerializeField] CanvasGroup BlackoutCanvas;
+    [SerializeField] LevelPlayer[] Characters;
+
     private Player player;
     public bool PlayerInputActive = false;
     private float maxDistance;
     public int FinishScore;
     private float time;
 
+
     void Start()
     {
         BlackoutCanvas.alpha = 1;
         BlackoutCanvas.DOFade(0, 2);
-        player = FindObjectOfType<Player>();
+        for (int i = 0; i < Characters.Length; i++)
+        {
+            Characters[i].playerScript.gameObject.SetActive(false);
+            if (Characters[i].Name == data.LevelCharacterName)
+            {
+                player = Characters[i].playerScript;
+                Characters[i].playerScript.gameObject.SetActive(true);
+            }
+        }
+        LevelCamera.target = player.body.transform;
+        //player = FindObjectOfType<Player>();
         PlayerInputActive = true;
         data.InitData();
     }
@@ -46,7 +59,6 @@ public class LevelManager : MonoBehaviour
 
             if(time <= 0)
             {
-                
                 BlackoutCanvas.alpha = 0;
                 BlackoutCanvas.DOFade(1, 2).OnComplete(() => 
                 {
@@ -55,7 +67,6 @@ public class LevelManager : MonoBehaviour
                     SceneManager.LoadScene("MainMenu"); 
                 });
                 break;
-               
             }
             yield return null;
         }
@@ -147,7 +158,7 @@ public class LevelManager : MonoBehaviour
         if(Fat < 9999)
         {
             Burgers.text = Fat.ToString();
-            player.SetBlandShape(Fat * 10);
+            player.SetBlandShape(Fat * 5);
         }
         else
         {
@@ -156,4 +167,13 @@ public class LevelManager : MonoBehaviour
         Burgers.transform.DOScale(1.3f, 0.08f).OnComplete(() => Burgers.transform.DOScale(1f, 0.08f));
        
     }
+
+
+}
+
+[System.Serializable]
+struct LevelPlayer
+{
+    public CharacterName Name;
+    public Player playerScript;
 }

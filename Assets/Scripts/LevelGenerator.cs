@@ -14,6 +14,10 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] int OtherBlocksCount;
     [SerializeField] GameObject FinishBlock;
     [SerializeField] GameObject Cone;
+    [Space(10)]
+    [SerializeField] GameObject Up;
+    [SerializeField] GameObject Down;
+
 
     private float distanceCounter = 0;
     private float UpCounter = 0;
@@ -21,7 +25,7 @@ public class LevelGenerator : MonoBehaviour
     void Start()
     {
         LevelManager manager = FindObjectOfType<LevelManager>();
-        countBlocks = Random.Range(manager.data.data.PlayerProgress, manager.data.data.PlayerProgress + 20);
+        countBlocks = Random.Range(manager.data.data.PlayerProgress, manager.data.data.PlayerProgress + 50);
         FindObjectOfType<LevelManager>().SetLevelDistance(countBlocks);
         while(countBlocks > 0)
         {
@@ -40,6 +44,7 @@ public class LevelGenerator : MonoBehaviour
 
     public void Generate()
     {
+        CreateLevelPattern();
         GenerateBonus(Random.Range(4,6));
         GenerateWall(1);
         VerticalOffset();
@@ -51,7 +56,26 @@ public class LevelGenerator : MonoBehaviour
         VerticalOffset();
         GenerateBonus(Random.Range(4, 6));
         GenerateOther(1);
+        
+    }
 
+
+    public void CreateLevelPattern()
+    {
+       
+        if (Random.Range(0, 2) == 0 && countBlocks > 0)
+        {
+            Instantiate(Up, new Vector3(distanceCounter, UpCounter, 0), new Quaternion(0, 0, 0, 0));
+            UpCounter += 9;
+            distanceCounter += 10;
+        }
+        else
+        {
+            Instantiate(Down, new Vector3(distanceCounter, UpCounter, 0), new Quaternion(0, 0, 0, 0));
+            UpCounter -= 9;
+            distanceCounter += 10;
+        }
+        
     }
 
     void VerticalOffset()
@@ -68,8 +92,6 @@ public class LevelGenerator : MonoBehaviour
             }
         }
     }
-
-
 
     void GenerateBonus(int count)
     {

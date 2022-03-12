@@ -22,7 +22,7 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
 #if UNITY_EDITOR
-        gameData.Save();
+        //gameData.Save(gameData.data);
 #endif
 
         BlackoutCanvas.alpha = 1;
@@ -102,6 +102,7 @@ public class MenuManager : MonoBehaviour
 
     public void LoadLevel()
     {
+        gameData.LevelCharacterName = Characters[gameData.currentCharacter].Name;
         BlackoutCanvas.alpha = 0;
         BlackoutCanvas.DOFade(1, 2).OnComplete(() => { SceneManager.LoadScene("Level_1.2"); });
     }

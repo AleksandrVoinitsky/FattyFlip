@@ -4,7 +4,7 @@ using UnityEngine;
 using MoreMountains.NiceVibrations;
 
 public class FinishAndGun : MonoBehaviour
-{//-6 05 6.5
+{
     [SerializeField] Animator animator;
     [SerializeField] Transform cameraTarget;
     [SerializeField] AudioSource audio;
@@ -62,23 +62,33 @@ public class FinishAndGun : MonoBehaviour
         Instantiate(particle, Firepoint.transform.position, Firepoint.transform.rotation);
         yield return new WaitForSeconds(0.2f);
         body.velocity = new Vector3(0, 0, 0);
-        camera.offset = new Vector3(-15, 1f, 0f);
+        camera.transform.rotation = Quaternion.Euler(10, 65, 0);
+        camera.smoothSpeed = 0.8f;
+        camera.offset = new Vector3(-11f, 5.5f, -5.5f);
         PlayerMainBone.transform.position = Firepoint.transform.position + new Vector3(0,0,0);
         manager.StartCoroutine(manager.MenuLoadTimer());
 
         float velosity = FindObjectOfType<LevelManager>().Fat;
-        if (velosity > 600)
+        velosity = velosity / 4;
+        if (velosity > 500)
         {
-            velosity = 600;
+            velosity = 500;
         }
-        if (velosity < 180)
+        if (velosity < 1)
         {
-            velosity = 180;
+            velosity = 1;
         }
-        body.velocity = Firepoint.transform.forward * (velosity);
-        //body.AddForce(Firepoint.transform.forward * (10 + FindObjectOfType<LevelManager>().Fat));
-        camera.target = body.transform;
         
+        camera.target = body.transform;
+        //velosity = 200;
+        float startVelosity = velosity;
+        while (velosity > startVelosity / 2)
+        {
+            body.velocity = Firepoint.transform.forward * 50;
+            body.angularVelocity = new Vector3(10, 15, 20);
+            velosity -= Time.fixedDeltaTime * 10;
+            yield return null;
+        }
     }
 
     private void Update()

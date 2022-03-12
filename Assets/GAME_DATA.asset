@@ -19,10 +19,11 @@ MonoBehaviour:
       Name: 0
       State: 0
       price: 100
-    - name: Red (Test)
+    - name: Wooman
       Name: 1
       State: 0
-      price: 200
-    PlayerProgress: 50
-  datapath: FattyData.json
+      price: 5000
+    PlayerProgress: 30
+  datapath: FattyFlipData.json
   currentCharacter: 0
+  LevelCharacterName: 0

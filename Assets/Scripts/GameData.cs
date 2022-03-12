@@ -10,9 +10,8 @@ public class GameData : ScriptableObject
     public Data data;
     public string datapath;
     public int currentCharacter;
+    public CharacterName LevelCharacterName;
     
-    
-
     public void InitData()
     {
         Load();
@@ -21,7 +20,7 @@ public class GameData : ScriptableObject
     public void SetCoins(int coins)
     {
         data.Coins += coins;
-        Save();
+        Save(data);
     }
 
     public void OpenCharacter(CharacterName name)
@@ -31,7 +30,7 @@ public class GameData : ScriptableObject
             if(data.Characters[i].Name == name)
             {
                 data.Characters[i].State = CharacterState.Open;
-                Save();
+                Save(data);
             }
         }
     }
@@ -48,7 +47,7 @@ public class GameData : ScriptableObject
         return new Character();
     }
 
-    public static DirectoryInfo SafeCreateDirectory(string path)
+    public DirectoryInfo SafeCreateDirectory(string path)
     {
         if (Directory.Exists(path))
         {
@@ -57,10 +56,21 @@ public class GameData : ScriptableObject
         return Directory.CreateDirectory(path);
     }
 
-    public void Save()
+    public void CheckSafeFile(string path)
+    {
+        if (File.Exists(path) == false)
+        {
+            Debug.Log("Создаем файл");
+            using (FileStream fs = File.Create(path)) { }
+            Save(data);
+        }
+    }
+
+    public void Save(Data file)
     {
         SafeCreateDirectory(Application.persistentDataPath);
-        string json = JsonUtility.ToJson(data);
+        CheckSafeFile(Application.persistentDataPath + "/" + datapath);
+        string json = JsonUtility.ToJson(file);
         StreamWriter Writer = new StreamWriter(Application.persistentDataPath + "/" + datapath);
         Writer.Write(json);
         Writer.Flush();
@@ -69,6 +79,8 @@ public class GameData : ScriptableObject
 
     public void Load()
     {
+        SafeCreateDirectory(Application.persistentDataPath);
+        CheckSafeFile(Application.persistentDataPath + "/" + datapath);
         var reader = new StreamReader(Application.persistentDataPath + "/" + datapath);
         string json = reader.ReadToEnd();
         Debug.Log(json);
@@ -99,8 +111,10 @@ public struct Character
 [System.Serializable]
 public enum CharacterName
 {
-    Hahhi,
-    Non
+    Haggy,
+    Wooman,
+    Dino,
+    SerenaHead
 }
 
 [System.Serializable]

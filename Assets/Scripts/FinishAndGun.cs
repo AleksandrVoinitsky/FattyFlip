@@ -15,6 +15,8 @@ public class FinishAndGun : MonoBehaviour
     bool GunReady = false;
     LevelManager manager;
 
+    [SerializeField] Animator ConeAnim;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
@@ -28,12 +30,14 @@ public class FinishAndGun : MonoBehaviour
 
     IEnumerator FinishScene()
     {
+        
         CameraFollow camera = FindObjectOfType<CameraFollow>();
         camera.smoothSpeed = 0.005f;
         camera.target = cameraTarget;
         camera.offset = new Vector3(-6f, 0.5f, 6.5f);
         audio.Play();
-       // yield return new WaitForSeconds(3);
+        // yield return new WaitForSeconds(3);
+        ConeAnim.SetTrigger("Start");
         yield return new WaitForSeconds(4);
         camera.smoothSpeed = 0.01f;
         animator.SetTrigger("StartGun");

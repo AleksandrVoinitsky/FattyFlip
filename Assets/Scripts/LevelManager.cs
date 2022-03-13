@@ -17,6 +17,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] float Timer;
     public GameData data;
     [SerializeField] CanvasGroup BlackoutCanvas;
+    [SerializeField] CanvasGroup WinCanvas;
+    [SerializeField] GameObject WinCanvasObject;
+    [SerializeField] TextMeshProUGUI CoinsWinPanel;
     [SerializeField] LevelPlayer[] Characters;
 
     private Player player;
@@ -28,6 +31,9 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
+
+        WinCanvas.alpha = 0;
+        WinCanvasObject.SetActive(false);
         BlackoutCanvas.alpha = 1;
         BlackoutCanvas.DOFade(0, 2);
         for (int i = 0; i < Characters.Length; i++)
@@ -59,17 +65,41 @@ public class LevelManager : MonoBehaviour
 
             if(time <= 0)
             {
-                BlackoutCanvas.alpha = 0;
-                BlackoutCanvas.DOFade(1, 2).OnComplete(() => 
-                {
-                    data.data.PlayerProgress += 5;
-                    data.SetCoins(Score);
-                    SceneManager.LoadScene("MainMenu"); 
-                });
+                WinCanvasObject.SetActive(true);
+                WinCanvas.DOFade(1, 1).OnComplete(() => { StartCoroutine(CoinsCounter()); });
                 break;
             }
             yield return null;
         }
+    }
+
+    public IEnumerator CoinsCounter()
+    {
+        int count = 0;
+        while (count < Score)
+        {
+            count += 1;
+            CoinsWinPanel.text = count.ToString();
+            yield return null;
+        }
+    }
+
+    public void LoadMenu()
+    {
+        StartCoroutine(LoadMainMenu());
+    }
+
+     IEnumerator LoadMainMenu()
+    {
+        BlackoutCanvas.alpha = 0;
+        BlackoutCanvas.DOFade(1, 2).OnComplete(() =>
+        {
+            data.data.PlayerProgress += 5;
+            data.SetCoins(Score);
+            SceneManager.LoadScene("MainMenu");
+
+        });
+        yield return null;
     }
 
     public void SetDistance(float dis)
